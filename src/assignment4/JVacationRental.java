@@ -13,6 +13,10 @@ import java.awt.*;
 import java.awt.event.*; 
 public class JVacationRental extends JFrame implements ItemListener {
     
+    // starter code from the problem, it declares and initializes the 
+    // user interface (UI) components such as checkboxes, text fields, 
+    // and button groups for the vacation rental program.
+    // it will later be added to a frame for display.
     FlowLayout flow = new FlowLayout(); 
     String companyName = new String("Lambert's Vacation Rentals"); 
     Font bigFont = new Font("Arial", Font.PLAIN, 24); 
@@ -63,7 +67,8 @@ public class JVacationRental extends JFrame implements ItemListener {
         
         // this is similar to the previous one. It is for the number of bedrooms
         // hence why it is labeled with Bedrooms.Same as previous, we add it to
-        // the frame, and we add the item listener to each.
+        // the frame, and we add the item listener to each.Note that we are
+        // adding it to the group to make sure it is only 1 box that can be checked
         add(new JLabel("Bedrooms:"));
         bdrmGrp.add(oneBox);
         bdrmGrp.add(twoBox);
@@ -77,7 +82,8 @@ public class JVacationRental extends JFrame implements ItemListener {
         
         // now it is for the meals. So the options are if there is meals included
         // or no meals included. Afterwards, add it to the frame and not forget
-        // to add the item listener.
+        // to add the item listener. Note that we are adding it to the group
+        // to make sure it is only 1 box that can be checked
         add(new JLabel("Meals:"));
         mealGrp.add(noMealsBox);
         mealGrp.add(mealsBox);
@@ -97,22 +103,37 @@ public class JVacationRental extends JFrame implements ItemListener {
 
     public static void main(String[] arguments) { 
 
+        // calling the class constructor, creating new
+        // and naming it as frame. Also creating the size and making  
+        // the frame visible
         JVacationRental frame = new JVacationRental(); 
         frame.setSize(320, 200); 
         frame.setVisible(true); 
 
     } 
 
+    // For this method, it is called when an event occurs 
+    // when the state of an item in a component that 
+    // implements the ItemSelectable interface changes (in this case
+    // the checkboxes)
     @Override 
     public void itemStateChanged(ItemEvent check) { 
-       int select = check.getStateChange(); 
+        // Get the new state of the item that triggered the event 
+        // (ItemEvent.SELECTED or ItemEvent.DESELECTED).
+        int select = check.getStateChange(); 
 
-       if(select == ItemEvent.SELECTED){
+        // this is the condition check, if an item has been selected
+        if(select == ItemEvent.SELECTED){
        
+            // creating a new label for the total price, and make sure that totPrice
+            // (total price) is set to not editable and then add it to the frame
             add(new JLabel("Total Price:"));
             totPrice.setEditable(false);
             add(totPrice);
             
+            // this for the place portion of the checkbox. It checks if the
+            // user picks either park, pool or lake. Each box corresponds with the
+            // defined price for it, and then that price is added to the total price
             if (parkBox.isSelected()) {
                 totalPrice += PARKPRICE;
             } else if (poolBox.isSelected()) {
@@ -121,6 +142,9 @@ public class JVacationRental extends JFrame implements ItemListener {
                 totalPrice += LAKEPRICE;
             }
             
+            // this one if for the portion of how many bedrooms. User can pick
+            // one, two, or three bedrooms. Each has its own price as well, and
+            // the price of it will be added to the total price
             if (oneBox.isSelected()) {
                 totalPrice += ONEPRICE;
             } else if (twoBox.isSelected()) {
@@ -129,12 +153,15 @@ public class JVacationRental extends JFrame implements ItemListener {
                 totalPrice += THREEPRICE;
             }
             
+            // this one is if the user picks for a meal package included or not
+            // it will then be added to the total price as well
             if (noMealsBox.isSelected()) {
                 totalPrice += NOMEALSPRICE;
             } else if (mealsBox.isSelected()) {
                 totalPrice += MEALSPRICE;
             }
             
+            // update the total price text field with the calculated total.
             totPrice.setText("$" + totalPrice);
            
        }
