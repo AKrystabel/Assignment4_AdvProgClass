@@ -34,23 +34,26 @@ public class JVacationRental extends JFrame implements ItemListener {
     JTextField totPrice = new JTextField(10); 
     String output; 
     
-    
+    // making the constructor for the JVacationRental class
     public JVacationRental() { 
         super("Vacation Rentals");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(flow);
         
-        //Setting the label of the company name to companyName that holds
-        // the value "Lambert's Vacation Rentals"
+        // setting the label of the company name to companyName that holds
+        // the value "Lambert's Vacation Rentals", afterwards adding it to the frame
         JLabel companyLabel = new JLabel(companyName);
         companyLabel.setFont(bigFont);
         add(companyLabel);
         
         // Setting the location boxes
         add(new JLabel("Location:"));
+        // this portion is for checkboxes. adding the parkBox, poolBox & lakeBox
         locationGrp.add(parkBox);
         locationGrp.add(poolBox);
         locationGrp.add(lakeBox);
+        // now the it is added to the frame, afterwards the item listener is
+        // also added to each of it.
         add(parkBox);
         add(poolBox);
         add(lakeBox);
@@ -58,6 +61,9 @@ public class JVacationRental extends JFrame implements ItemListener {
         poolBox.addItemListener(this);
         lakeBox.addItemListener(this);
         
+        // this is similar to the previous one. It is for the number of bedrooms
+        // hence why it is labeled with Bedrooms.Same as previous, we add it to
+        // the frame, and we add the item listener to each.
         add(new JLabel("Bedrooms:"));
         bdrmGrp.add(oneBox);
         bdrmGrp.add(twoBox);
@@ -69,6 +75,9 @@ public class JVacationRental extends JFrame implements ItemListener {
         twoBox.addItemListener(this);
         threeBox.addItemListener(this);
         
+        // now it is for the meals. So the options are if there is meals included
+        // or no meals included. Afterwards, add it to the frame and not forget
+        // to add the item listener.
         add(new JLabel("Meals:"));
         mealGrp.add(noMealsBox);
         mealGrp.add(mealsBox);
@@ -77,6 +86,9 @@ public class JVacationRental extends JFrame implements ItemListener {
         noMealsBox.addItemListener(this);
         mealsBox.addItemListener(this);
         
+        // this is for the total price. Also very important to make sure it is
+        // NOT editable (hence why it is set to false). Otherwise, the whole
+        // program was for nothing if the price could be edited
         add(new JLabel("Total Price:"));
         totPrice.setEditable(false);
         add(totPrice);

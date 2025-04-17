@@ -73,10 +73,10 @@ public class Capitals extends JFrame implements ActionListener {
         // afterwards, the selectedCountry will be used as the input to get the
         // corresponding capital as stored in the hashmap. The name of the capital
         // will then be stored in the capital string variable. next, it will check 
-        // that in the case the capital has a value (not null), it will print out
-        // the statement as set in the resultLabel using the setText method. It prints
-        // out the name of the country that the user selected and the name of the 
-        // corresponding capital city.
+        // that in the case the capital has a value (not null), it will update the 
+        // text of the resultLabel using the setText method to display the selected 
+        // country and its capital. It prints out the name of the country that the  
+        // user selected and the name of the corresponding capital city.
         String selectedCountry = (String) countryList.getSelectedItem();
         String capital = countryCapitalMap.get(selectedCountry); 
         if (capital != null) {
