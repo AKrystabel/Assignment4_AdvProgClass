@@ -20,17 +20,20 @@ public class JVacationRental extends JFrame implements ItemListener {
     FlowLayout flow = new FlowLayout(); 
     String companyName = new String("Lambert's Vacation Rentals"); 
     Font bigFont = new Font("Arial", Font.PLAIN, 24); 
+    
     final int PARKPRICE = 600, POOLPRICE = 750, LAKEPRICE = 825; 
     int totalPrice = 0; 
     ButtonGroup locationGrp = new ButtonGroup(); 
     JCheckBox parkBox = new JCheckBox("Parkside", false); 
     JCheckBox poolBox = new JCheckBox("Poolside", false); 
     JCheckBox lakeBox = new JCheckBox("Lakeside", false); 
+    
     final int ONEPRICE = 0, TWOPRICE = 75, THREEPRICE = 150; 
     ButtonGroup bdrmGrp = new ButtonGroup(); 
     JCheckBox oneBox = new JCheckBox("1 bedroom", false); 
     JCheckBox twoBox = new JCheckBox("2 bedrooms", false); 
     JCheckBox threeBox = new JCheckBox("3 bedrooms", false); 
+    
     final int NOMEALSPRICE = 0, MEALSPRICE = 200; 
     ButtonGroup mealGrp = new ButtonGroup(); 
     JCheckBox noMealsBox = new JCheckBox("No meals", false); 
@@ -117,14 +120,21 @@ public class JVacationRental extends JFrame implements ItemListener {
     // implements the ItemSelectable interface changes (in this case
     // the checkboxes)
     @Override 
-    public void itemStateChanged(ItemEvent check) { 
+    public void itemStateChanged(ItemEvent check) {
+        
+        // creating a variable to hold the total from the selected event,
+        // totalPrice1 and the total from the deselected event, totalPrice2
+        // also initializing it to be both 0 (starting from 0)
+        int totalPrice1 = 0;
+        int totalPrice2 = 0;
+        
         // Get the new state of the item that triggered the event 
         // (ItemEvent.SELECTED or ItemEvent.DESELECTED).
         int select = check.getStateChange(); 
 
         // this is the condition check, if an item has been selected
         if(select == ItemEvent.SELECTED){
-       
+        
             // creating a new label for the total price, and make sure that totPrice
             // (total price) is set to not editable and then add it to the frame
             add(new JLabel("Total Price:"));
@@ -134,38 +144,63 @@ public class JVacationRental extends JFrame implements ItemListener {
             // this for the place portion of the checkbox. It checks if the
             // user picks either park, pool or lake. Each box corresponds with the
             // defined price for it, and then that price is added to the total price
+            // (totalPrice1 which was initialized to be 0)
             if (parkBox.isSelected()) {
-                totalPrice += PARKPRICE;
+                totalPrice1 += PARKPRICE;
             } else if (poolBox.isSelected()) {
-                totalPrice += POOLPRICE;
+                totalPrice1 += POOLPRICE;
             } else if (lakeBox.isSelected()) {
-                totalPrice += LAKEPRICE;
+                totalPrice1 += LAKEPRICE;
             }
             
             // this one if for the portion of how many bedrooms. User can pick
             // one, two, or three bedrooms. Each has its own price as well, and
             // the price of it will be added to the total price
             if (oneBox.isSelected()) {
-                totalPrice += ONEPRICE;
+                totalPrice1 += ONEPRICE;
             } else if (twoBox.isSelected()) {
-                totalPrice += TWOPRICE;
+                totalPrice1 += TWOPRICE;
             } else if (threeBox.isSelected()) {
-                totalPrice += THREEPRICE;
+                totalPrice1 += THREEPRICE;
             }
             
             // this one is if the user picks for a meal package included or not
             // it will then be added to the total price as well
             if (noMealsBox.isSelected()) {
-                totalPrice += NOMEALSPRICE;
+                totalPrice1 += NOMEALSPRICE;
             } else if (mealsBox.isSelected()) {
-                totalPrice += MEALSPRICE;
+                totalPrice1 += MEALSPRICE;
+            }  
+        }
+       
+        if (select == ItemEvent.DESELECTED) {
+        // if an item has been deselected, subtract its price.
+        // similar to the explanation above, except instead of adding, it will
+        // be subtracted. Storing it in totalPrice2 (which was initialized to be 0)
+            if (check.getSource() == parkBox) {
+                totalPrice2 -= PARKPRICE;
+            } else if (check.getSource() == poolBox) {
+                totalPrice2 -= POOLPRICE;
+            } else if (check.getSource() == lakeBox) {
+                totalPrice2 -= LAKEPRICE;
+            } else if (check.getSource() == oneBox) {
+                totalPrice2 -= ONEPRICE;
+            } else if (check.getSource() == twoBox) {
+                totalPrice2 -= TWOPRICE;
+            } else if (check.getSource() == threeBox) {
+                totalPrice2 -= THREEPRICE;
+            } else if (check.getSource() == noMealsBox) {
+                totalPrice2 -= NOMEALSPRICE;
+            } else if (check.getSource() == mealsBox) {
+                totalPrice2 -= MEALSPRICE;
             }
-            
-            // update the total price text field with the calculated total.
-            totPrice.setText("$" + totalPrice);
-           
-       }
+        }
 
+        // calculate the final totalPrice for the rent through the total from
+        // selected events - the total from the deselected events. Afterwards,
+        // update the total price by the calculated final amount.
+        totalPrice = totalPrice1 + totalPrice2;
+        totPrice.setText("$" + totalPrice);
     }
 
 } 
